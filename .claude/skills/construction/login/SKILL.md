@@ -193,4 +193,4 @@ mcp__claude_ai_Figma__get_screenshot(nodeId="<新 frame ID>", fileKey="...")
 
 - **Figma 写入：** `VjnKgyA71h6uJxJCSTB6NS` 文件，原 Login frame 右侧
 - **文档模式：** 当前工作目录的 `./DESIGN.md`
-- **绝不要** 写入 `.claude/skills/login/` 内部
+- **绝不要** 写入 `.claude/skills/construction/login/` 内部

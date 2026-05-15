@@ -12,11 +12,11 @@
 
 | 阶段 | 谁做 | 做什么 | 用哪个 skill |
 |------|------|--------|-------------|
-| **① Inception 构思** | AI + 人类 | 理解需求 → 信息架构 → 生成 DESIGN.md → 批注确认循环 | `/inception` |
-| **② Construction 构建** | AI | 读 DESIGN.md → 在约束内出高保真图 → 写入 Figma | 对应页面 skill |
-| **③ Operation 运维** | AI + 人类 | 验收 Figma → 复盘决策 → 经验写回 references/ | `/retro` |
+| **① Inception 构思** | AI + 人类 | 理解需求 → 信息架构 → 生成 DESIGN.md → 批注确认循环 | `inception/SKILL.md` |
+| **② Construction 构建** | AI | 读 DESIGN.md → 在约束内出高保真图 → 写入 Figma | 见 `index.md` → Construction Page Skills |
+| **③ Operation 运维** | AI + 人类 | 验收 Figma → 复盘决策 → 经验写回 references/ | `retro/SKILL.md` |
 
-**DESIGN.md 是 Inception 和 Construction 的门控文档，未经人类确认不执行出图。**
+**门控规则：Construction Page Skills 只接受两种入口——(a) Inception 确认的 DESIGN.md，或 (b) 用户明确指定页面类型。需求模糊一律先走 Inception。**
 
 ---
 

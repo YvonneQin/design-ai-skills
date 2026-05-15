@@ -64,7 +64,7 @@ mcp__claude_ai_Figma__get_design_context(
 )
 ```
 
-**⚠️ 响应必然超大**（Type2 ~345K 字符、Basic ~182K）。**必须**派 `general-purpose` subagent 用 `jq`/`python` 解析临时文件，subagent prompt 参考 [上一版 SKILL.md](../../.claude/skills/dashboard/SKILL.md) 的阶段 2 模板。
+**⚠️ 响应必然超大**（Type2 ~345K 字符、Basic ~182K）。**必须**派 `general-purpose` subagent 用 `jq`/`python` 解析临时文件，subagent prompt 参考本文件（`construction/dashboard/SKILL.md`）的阶段 2 结构。
 
 ### 阶段 2 — 拉取共享变量
 
@@ -216,4 +216,4 @@ mcp__claude_ai_Figma__get_screenshot(nodeId="<新 frame ID>", fileKey="...")
 
 - **Figma 写入：** `VjnKgyA71h6uJxJCSTB6NS` 文件，原 Dashboard frame 右侧（流程模式下放 Login 新 frame 右侧）
 - **文档模式：** 当前工作目录的 `./DESIGN.md`
-- **绝不要**写入 `.claude/skills/dashboard/` 内部
+- **绝不要**写入 `.claude/skills/construction/dashboard/` 内部
