@@ -166,57 +166,45 @@ return { ctaName: cta.name, ctaPos: { x, y, w, h }, groupId: grp.id };
 
 在出图后如需添加可点击的 Prototype 连线，且触点需精确到按钮层级：
 
-### 核心限制与方案
+### 核心规则
 
 - `reactions` 属性是只读的 → 必须用 `setReactionsAsync()`
 - `transition: null` 无效 → 必须提供完整 transition 对象
-- **页面级裸矩形/Frame 不能作为 prototype 触发节点** → 必须是某个 screen Frame 的子节点
-- Instance 的 children 是只读的 → 无法直接往 Instance 里插节点
+- **可以直接在 Instance 内部的嵌套子节点（Button instance / TEXT）上调用 `setReactionsAsync`** — 无需 wrapper，组件链接保持完整
+- ❌ 不要用 wrapper frame 包住 instance — 会让 instance 看起来像解绑
 
-### Wrapper + Hotspot 模式（已验证）
-
-将 Instance 包入一个 wrapper Frame，再在 wrapper 内插透明 hotspot Frame：
+### 正确模式：直接在嵌套子节点上设 reaction（已验证）
 
 ```javascript
-// 1. 找到 Instance 及按钮的相对坐标
-const inst = await figma.getNodeByIdAsync('<instance_id>');
-// relX/relY = absPos(ctaNode) - inst.x/inst.y
+// 1. 找到屏幕 instance 内部的最宽 Button（主 CTA）
+const screenInst = await figma.getNodeByIdAsync('<instance_id>');
+const screenY = screenInst.y;
+let cta = null, maxW = 0;
+function findWidestBtn(node, depth) {
+  if (depth > 10) return;
+  if (node.type === 'INSTANCE' && node.name === 'Button') {
+    const p = absPos(node);
+    if (p.y > screenY + 200 && node.width > maxW) { maxW = node.width; cta = node; }
+  }
+  if ('children' in node) node.children.forEach(c => findWidestBtn(c, depth + 1));
+}
+findWidestBtn(screenInst, 0);
 
-// 2. 创建 wrapper Screen（与 Instance 同尺寸、同位置）
-const wrapper = figma.createFrame();
-wrapper.name = "Screen / <页面名>";
-wrapper.x = inst.x;  wrapper.y = inst.y;
-wrapper.resize(inst.width, inst.height);
-wrapper.fills = [];
-wrapper.clipsContent = false;
-page.appendChild(wrapper);
-
-// 3. 将 Instance 移入 wrapper
-wrapper.appendChild(inst);
-inst.x = 0;  inst.y = 0;
-
-// 4. 在 wrapper 内插透明 hotspot Frame
-const hotspot = figma.createFrame();
-hotspot.name = "hotspot / <按钮名> → <目标页>";
-hotspot.x = <relX>;  hotspot.y = <relY>;
-hotspot.resize(<ctaWidth>, <ctaHeight>);
-hotspot.fills = [];
-hotspot.clipsContent = false;
-wrapper.appendChild(hotspot);
-
-// 5. 在 hotspot 上设置 reaction
-await hotspot.setReactionsAsync([{
+// 2. 直接在嵌套 Button instance 上调用 setReactionsAsync
+await cta.setReactionsAsync([{
   trigger: { type: 'ON_CLICK' },
   actions: [{
     type: 'NODE',
-    destinationId: '<dest_frame_id>',
+    destinationId: '<dest_instance_id>',
     navigation: 'NAVIGATE',
     transition: { type: 'DISSOLVE', easing: { type: 'EASE_OUT' }, duration: 0.3 }
   }]
 }]);
 ```
 
-> **结果**：Prototype 模式下只有 Sign In 按钮区域可点击，其他区域不触发跳转。
+**文字链接**（如 "Forgot password?"）同样适用：找到 TEXT 子节点，直接 `setReactionsAsync`。
+
+> **结果**：Instance 保持组件链接，Prototype 模式下点击具体按钮触发跳转，其他区域不响应。
 
 ---
 
