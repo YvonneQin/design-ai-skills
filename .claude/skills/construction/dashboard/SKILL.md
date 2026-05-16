@@ -173,6 +173,14 @@ arrow.text.characters = "Login Success";
 return { arrowId: arrow.id };
 ```
 
+### 标注后处理（默认执行）
+
+读 [`../common/annotation.md`](../common/annotation.md)，用以下参数执行标注模板：
+
+- `FRAME_ID`：上一阶段返回的新 frame nodeId
+- `PAGE_KEYWORDS`：`['Create', 'Get Started', 'View All']`
+- `DEST_LABEL`：`'→ List Page'`
+
 ### 阶段 6 — 校验与汇报
 
 ```

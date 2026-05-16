@@ -59,6 +59,14 @@ instance.name = "<语义化名字，如 "Order Detail - Prepay">";
 return { newNodeId: instance.id, x: instance.x, y: instance.y };
 ```
 
+### 标注后处理（默认执行）
+
+读 [`../common/annotation.md`](../common/annotation.md)，用以下参数执行标注模板：
+
+- `FRAME_ID`：上一阶段返回的新 frame nodeId
+- `PAGE_KEYWORDS`：`['Pay', 'Confirm', 'Complete']`
+- `DEST_LABEL`：`'→ 完成'`
+
 ### 阶段 3 — 校验与汇报
 
 ```

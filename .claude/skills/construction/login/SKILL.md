@@ -150,6 +150,14 @@ CONSTRAINTS:
   - 所有视觉属性 bind 到上述 token，不要硬编码
 ```
 
+### 标注后处理（默认执行）
+
+读 [`../common/annotation.md`](../common/annotation.md)，用以下参数执行标注模板：
+
+- `FRAME_ID`：上一阶段返回的新 frame nodeId
+- `PAGE_KEYWORDS`：`['Sign In', 'Sign Up', 'Submit']`
+- `DEST_LABEL`：`'→ Dashboard'`
+
 ### 阶段 6 — 校验与汇报
 
 ```

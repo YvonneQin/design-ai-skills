@@ -79,6 +79,14 @@ return { newNodeId: instance.id, x: instance.x, y: instance.y };
 
 **改写模式**（用户说"改/加/去掉"时）：切换到 `figma-generate-design`，参考 dashboard skill 的 brief 模板。
 
+### 标注后处理（默认执行）
+
+读 [`../common/annotation.md`](../common/annotation.md)，用以下参数执行标注模板：
+
+- `FRAME_ID`：上一阶段返回的新 frame nodeId
+- `PAGE_KEYWORDS`：`['Create', 'New']`
+- `DEST_LABEL`：`'→ Create Page'`
+
 ### 阶段 3 — 校验与汇报
 
 ```

@@ -85,6 +85,14 @@ CONSTRAINTS:
   - 复用共享组件（TopNavigation 525:17195、Button 192:3022、CopyRight 90:1433）
 ```
 
+### 标注后处理（默认执行）
+
+读 [`../common/annotation.md`](../common/annotation.md)，用以下参数执行标注模板：
+
+- `FRAME_ID`：上一阶段返回的新 frame nodeId
+- `PAGE_KEYWORDS`：`['Create', 'Submit', 'Order', 'Confirm']`
+- `DEST_LABEL`：`'→ Order Detail'`
+
 ### 阶段 3 — 校验与汇报
 
 ```
